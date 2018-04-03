@@ -13,6 +13,8 @@ var bumperPos;
 var passThroughMargin;
 var passThroughWidth;
 var mousePosX;
+var mousePosY;
+var passThroughColor;
 var newScore;
 var tempHighScore;
 var scoreBool;
@@ -55,12 +57,12 @@ function setPassThrough() {
 function resetGame() {
     newHighScore(newScore, tempHighScore);
     newScore = 0;
+    score.innerHTML = newScore.toString();
     resetBool();
     resetPosition();
     setPassThrough();
-    score.innerHTML = newScore.toString();
+    newPassThrough();
     bumper.style.setProperty('--bumper-marginTop', bumperPos + 'px');
-    passThrough.style.setProperty('--passThrough-marginLeft', passThroughMargin + 'px');
 }
 
 
@@ -68,8 +70,12 @@ function resetGame() {
 function newPassThrough() {
     passThroughMargin = randomPassThrough(1200, 50);
     passThroughWidth = randomPassThrough(400, 120);
+    passThroughColor = randomPassThrough(255, 0);
+    console.log('Pass: ' + passThroughColor);
     passThrough.style.setProperty('--passThrough-marginLeft', passThroughMargin + 'px');
     passThrough.style.setProperty('--passThrough-width', passThroughWidth + 'px');
+    passThrough.style.setProperty('--pass-bg-color', 'rgb(255,' + passThroughColor + ', 70');
+
 }
 
 function randomPassThrough(max, min) {
@@ -87,6 +93,23 @@ function newBumperPos(value) {
     }
 }
 
+function newRgbColor(value) {
+
+    value = (value * 0.34) - 50;
+    value = Math.ceil(value)
+
+    if (value < 1) {
+        return 0;
+    } else if (value > 254) {
+        return 255;
+    }
+    return value;
+}
+
+function difference(x, y) {
+  return Math.abs(x - y);
+}
+
 
 /* Event listener */
 document.addEventListener('click', function () {
@@ -95,18 +118,18 @@ document.addEventListener('click', function () {
         highScore.innerHTML = '';
         gameStart = true;
         gameLoop();
+    } else if (gameStopped) {
+        restart();
     }
 });
-
-document.onkeydown = function (e) {
-    if (gameStopped && e.keyCode === 82)
-        restart();
-};
 
 document.addEventListener('mousemove', function () {
     if (!gameStopped) {
         var e = window.event;
         mousePosX = e.clientX - 35;
+        mousePosY = e.clientY;
+        mousePosY = newRgbColor(mousePosY);
+        slider.style.setProperty('--slider-bg-color', 'rgb(255,' + mousePosY +', 70');
         slider.style.setProperty('--slider-marginLeft', mousePosX + 'px');
     }
 });
@@ -115,12 +138,13 @@ document.addEventListener('mousemove', function () {
 /* collision handler & game loop */
 function checkColliosion(speedValue) {
     if (speedValue <= 220 && speedValue >= 140) {
-        if (!scoreBool) {
-            scoreBool = true;
-        }
-        if (mousePosX < passThroughMargin || (mousePosX + 70) > (passThroughMargin + passThroughWidth)) {
-            return true;
-        }
+        /* mousePosY 'check' passThroughColor */
+            if (!scoreBool) {
+                scoreBool = true;
+            }
+            if (mousePosX < passThroughMargin || (mousePosX + 70) > (passThroughMargin + passThroughWidth) || difference(mousePosY, passThroughColor) > 10) {
+                return true;
+            }
     } else if (speedValue < 140 && scoreBool) {
         newScore++;
         scoreBool = false;
@@ -134,7 +158,7 @@ function gameLoop() {
     var timer = setInterval(function () {
         bumperPos--;
         if (checkColliosion(bumperPos)) {
-            text.innerHTML = 'Press R to restart';
+            text.innerHTML = 'Click to restart!';
             gameStopped = true;
             clearInterval(timer);
         }
