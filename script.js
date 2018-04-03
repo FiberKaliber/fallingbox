@@ -142,7 +142,7 @@ function checkColliosion(speedValue) {
             if (!scoreBool) {
                 scoreBool = true;
             }
-            if (mousePosX < passThroughMargin || (mousePosX + 70) > (passThroughMargin + passThroughWidth) || difference(mousePosY, passThroughColor) > 10) {
+            if (mousePosX < passThroughMargin || (mousePosX + 70) > (passThroughMargin + passThroughWidth) || difference(mousePosY, passThroughColor) > 40) {
                 return true;
             }
     } else if (speedValue < 140 && scoreBool) {
@@ -159,6 +159,7 @@ function gameLoop() {
         bumperPos--;
         if (checkColliosion(bumperPos)) {
             text.innerHTML = 'Click to restart!';
+            console.log('MouseRGB: ' + mousePosY + ' PassColor: ' + passThroughColor + ' Difference: ' + difference(mousePosY, passThroughColor));
             gameStopped = true;
             clearInterval(timer);
         }
