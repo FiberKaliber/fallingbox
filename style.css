@@ -4,6 +4,8 @@ html {
     --bumper-marginTop: 100%;
     --passThrough-width: 300px;
     --passThrough-marginLeft: 500px;
+    --slider-bg-color: rgb(255, 150, 70);
+    --pass-bg-color: rgb(255, 150, 70);
 }
 
 
@@ -30,7 +32,7 @@ html {
 }
 
 #slider {
-    background-color: #ff9719;
+    background-color: var(--slider-bg-color);
     position: fixed;
     width: 70px;
     height: 70px;
@@ -91,6 +93,7 @@ html {
 }
 
 #passThrough {
+    background-color: var(--pass-bg-color);
     width: var(--passThrough-width);
     margin-left: var(--passThrough-marginLeft);
     height: 100%;
