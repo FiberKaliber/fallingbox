@@ -1,0 +1,97 @@
+/* variables */
+html {
+    --slider-marginLeft: 45%;
+    --bumper-marginTop: 100%;
+    --passThrough-width: 300px;
+    --passThrough-marginLeft: 500px;
+}
+
+
+
+* {
+    background-color: #23282d;
+    margin-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-right: 0;
+    z-index: 0;
+    letter-spacing: 1px;
+    word-spacing: 2px;
+    cursor: none;
+
+}
+
+
+
+/* Slider & GameArea */
+#slideArea {
+    width: 100%;
+    height: 750px;
+}
+
+#slider {
+    background-color: #ff9719;
+    position: fixed;
+    width: 70px;
+    height: 70px;
+    border-radius: 5px;
+    margin-top: 150px;
+    margin-left: var(--slider-marginLeft);
+    z-index: 2;
+}
+
+
+
+/* Text around slider */
+.textClass {
+    position: fixed;
+    font-family: Tahoma;
+    color: #e6f3f7;
+    text-align: center;
+    width: 400px;
+    margin-left: -160px;
+}
+
+#textArea {
+    font-size: 42px;
+    top: 70px;
+}
+
+#highScore {
+    color: #ffe4b2;
+    font-size: 32px;
+    top: 245px;
+}
+
+
+
+/* Score */
+#scoreDiv {
+    width: 98%;
+    height: 100px;
+    position: fixed;
+    top: 12px;
+}
+
+#score {
+    font-family: Arial;
+    color: #45565c;
+    font-size: 64px;
+    text-align: right;
+
+}
+
+#bumper {
+    background-color: #7997a1;
+    position: fixed;
+    margin-top: var(--bumper-marginTop);
+    width: 100%;
+    height: 20px;
+    z-index: 1;
+}
+
+#passThrough {
+    width: var(--passThrough-width);
+    margin-left: var(--passThrough-marginLeft);
+    height: 100%;
+}
