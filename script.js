@@ -18,6 +18,7 @@ var passThroughColor;
 var newScore;
 var tempHighScore;
 var scoreBool;
+var opacity;
 
 
 /* Reset the game */
@@ -63,6 +64,7 @@ function setPassThrough() {
 function resetGame() {
     newHighScore(newScore, tempHighScore);
     newScore = 0;
+    opacity = 1.0;
     score.innerHTML = newScore.toString();
     resetBool();
     resetPosition();

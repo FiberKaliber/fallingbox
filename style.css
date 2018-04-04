@@ -17,6 +17,7 @@ html {
     --passThrough-marginLeft: 500px;
     --slider-bg-color: rgb(255, 150, 70);
     --pass-bg-color: rgb(255, 150, 70);
+    --bumper-opacity: 1.0;
 }
 
 
@@ -45,7 +46,7 @@ body {
 /* Text around slider */
 .textClass {
     position: fixed;
-    font-family: Gruppo, Tahoma;
+    font-family: Chicle, Verdana, Arial;
     color: #cbe5f8;
     text-align: center;
     width: 400px;
@@ -85,6 +86,7 @@ body {
     background-color: #4b738e;
     position: fixed;
     margin-top: var(--bumper-marginTop);
+    opacity: var(--bumper-opacity);
     width: 100%;
     height: 25px;
     z-index: 1;
