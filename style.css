@@ -26,11 +26,6 @@ html {
 
 
 /* Slider & GameArea */
-#slideArea {
-    width: 100%;
-    height: 750px;
-}
-
 #slider {
     background-color: var(--slider-bg-color);
     position: fixed;

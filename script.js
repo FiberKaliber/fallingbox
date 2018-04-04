@@ -27,6 +27,12 @@ window.onload = function () {
     restart();
 };
 
+window.addEventListener('mousewheel', function (event) {
+    if (event.ctrlKey == true) {
+      event.preventDefault();
+    }
+  });
+
 function restart() {
     text.innerHTML = 'Click to start';
     highScore.innerHTML = 'Highscore: ' + tempHighScore;
