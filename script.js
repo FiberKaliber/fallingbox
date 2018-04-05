@@ -47,7 +47,8 @@ function newHighScore(a, b) {
 }
 
 function resetPosition() {
-    bumperPos = 1000;
+    bumperPos = 1150;
+    changeBumperOpacity(true);
 }
 
 function resetBool() {
@@ -64,7 +65,7 @@ function setPassThrough() {
 function resetGame() {
     newHighScore(newScore, tempHighScore);
     newScore = 0;
-    opacity = 1.0;
+    opacity = 0;
     score.innerHTML = newScore.toString();
     resetBool();
     resetPosition();
@@ -97,7 +98,31 @@ function newBumperPos(value) {
         resetPosition();
         newPassThrough();
         bumper.style.setProperty('--bumper-marginTop', bumperPos + 'px');
+    }
+}
 
+function changeBumperOpacity(bool) {
+    if (!bool && opacity > 0) {
+        opacity -= 0.007;
+    } else if (!bool) {
+        opacity = 0;
+    }
+
+    if (bool && opacity < 1) {
+        opacity += 0.004;
+    } else if (bool) {
+        opacity = 1;
+    }
+    opacity = parseFloat(opacity);
+   // console.log('Opacity: ' + opacity);
+    bumper.style.setProperty('--bumper-opacity' , opacity);
+}
+
+function checkOpacity(value) {
+    if (value < 140) {
+        changeBumperOpacity(false);
+    } else if (value > 850) {
+        changeBumperOpacity(true);
     }
 }
 
@@ -171,6 +196,7 @@ function gameLoop() {
             gameStopped = true;
             clearInterval(timer);
         }
+        checkOpacity(bumperPos);
         newBumperPos(bumperPos);
     }, 1);
 }

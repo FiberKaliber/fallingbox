@@ -12,7 +12,7 @@
 /* variables */
 html {
     --slider-marginLeft: 45%;
-    --bumper-marginTop: 100%;
+    --bumper-marginTop: 1150px;
     --passThrough-width: 300px;
     --passThrough-marginLeft: 500px;
     --slider-bg-color: rgb(255, 150, 70);
@@ -47,6 +47,7 @@ body {
 .textClass {
     position: fixed;
     font-family: Chicle, Verdana, Arial;
+    letter-spacing: 3px;
     color: #cbe5f8;
     text-align: center;
     width: 400px;
