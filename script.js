@@ -19,12 +19,15 @@ var newScore;
 var tempHighScore;
 var scoreBool;
 var opacity;
+var windowHeight;
 
 
 /* Reset the game */
 window.onload = function () {
     //placeholder for highscore = 0
     tempHighScore = 0;
+    windowHeight = window.innerHeight;
+    console.log(windowHeight);
     restart();
 };
 
@@ -47,7 +50,7 @@ function newHighScore(a, b) {
 }
 
 function resetPosition() {
-    bumperPos = 1150;
+    bumperPos = windowHeight;
     changeBumperOpacity(true);
 }
 
@@ -103,25 +106,25 @@ function newBumperPos(value) {
 
 function changeBumperOpacity(bool) {
     if (!bool && opacity > 0) {
-        opacity -= 0.007;
+        opacity -= 0.009;
     } else if (!bool) {
         opacity = 0;
     }
 
     if (bool && opacity < 1) {
-        opacity += 0.004;
+        opacity += 0.009;
     } else if (bool) {
         opacity = 1;
     }
     opacity = parseFloat(opacity);
-   // console.log('Opacity: ' + opacity);
+    // console.log('Opacity: ' + opacity);
     bumper.style.setProperty('--bumper-opacity' , opacity);
 }
 
 function checkOpacity(value) {
     if (value < 140) {
         changeBumperOpacity(false);
-    } else if (value > 850) {
+    } else if (value > windowHeight - 140) {
         changeBumperOpacity(true);
     }
 }
@@ -162,6 +165,7 @@ document.addEventListener('mousemove', function () {
         mousePosX = e.clientX - 35;
         mousePosY = e.clientY;
         mousePosY = newRgbColor(mousePosY);
+        /* Okey, order up mousePosY with window.iinerHeight to match the change from mouse to new Rgb to Slider */
         slider.style.setProperty('--slider-bg-color', 'rgb(255,' + mousePosY +', 70');
         slider.style.setProperty('--slider-marginLeft', mousePosX + 'px');
     }
