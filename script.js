@@ -12,15 +12,15 @@ var gameStopped;
 var bumperPos;
 var passThroughMargin;
 var passThroughWidth;
+var passThroughColor;
 var mousePosX;
 var mousePosY;
-var passThroughColor;
 var newScore;
 var tempHighScore;
 var scoreBool;
 var opacity;
 var windowHeight;
-
+var windowWidth;
 
 /* Reset the game */
 window.onload = function () {
@@ -28,6 +28,7 @@ window.onload = function () {
     tempHighScore = 0;
     windowHeight = window.innerHeight;
     console.log(windowHeight);
+    windowWidth = window.innerWidth;
     restart();
 };
 
@@ -80,7 +81,7 @@ function resetGame() {
 
 /* New Random passThrough & bumper position */
 function newPassThrough() {
-    passThroughMargin = randomPassThrough(1200, 50);
+    passThroughMargin = randomPassThrough(windowWidth - 400, 10);
     passThroughWidth = randomPassThrough(400, 120);
     passThroughColor = randomPassThrough(255, 0);
     console.log('Pass: ' + passThroughColor);
@@ -131,7 +132,7 @@ function checkOpacity(value) {
 
 function newRgbColor(value) {
 
-    value = (value * 0.34) - 50;
+    value = (value * (350/windowHeight) - 50);
     value = Math.ceil(value)
 
     if (value < 1) {
@@ -165,7 +166,7 @@ document.addEventListener('mousemove', function () {
         mousePosX = e.clientX - 35;
         mousePosY = e.clientY;
         mousePosY = newRgbColor(mousePosY);
-        /* Okey, order up mousePosY with window.iinerHeight to match the change from mouse to new Rgb to Slider */
+        /* Order up mousePosY with window.iinerHeight to match the change from mouse to new Rgb to Slider */
         slider.style.setProperty('--slider-bg-color', 'rgb(255,' + mousePosY +', 70');
         slider.style.setProperty('--slider-marginLeft', mousePosX + 'px');
     }
