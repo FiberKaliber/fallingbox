@@ -7,6 +7,8 @@ var score = document.getElementById('score');
 var highScore = document.getElementById('highScore');
 
 /* global variables */
+var event = window.event;
+var starsX;
 var gameStart;
 var gameStopped;
 var bumperPos;
@@ -179,6 +181,14 @@ function difference(x, y) {
 function newPosition(star, i, speed) {
     star[i].yPos -= speed;
     star[i].yPos = star[i].yPos.toFixed(2);
+
+
+    if(starsX > 0 && (star[i].xPos + starsX) < windowWidth) {
+        star[i].xPos += starsX;
+    } else if (starsX < 0 && (star[i].xPos - starsX) >= 0) {
+        star[i].xPos -= starsX;
+    }
+
     if(star[i].yPos <= 0) {
         star[i].xPos = randomPassThrough(0, element.width);;
         star[i].yPos = element.height;
@@ -188,7 +198,6 @@ function newPosition(star, i, speed) {
 function starHandler() {
 canvas.clearRect(0, 0, element.width, element.height);
 canvas.fillStyle = "#cbe5f8";
-
     for (var i = 0; i < smallStars.length; i++) {
         canvas.fillRect(smallStars[i].xPos, smallStars[i].yPos, smallStars[i].height, smallStars[i].width);
         newPosition(smallStars, i, smallStarSpeed);
@@ -210,11 +219,16 @@ document.addEventListener('click', function () {
 
 document.addEventListener('mousemove', function () {
     if (!gameStopped) {
-        var e = window.event;
-        mousePosX = e.clientX - 35;
-        mousePosY = e.clientY;
-        mousePosY = newRgbColor(mousePosY);
+        mousePosX = event.clientX - 35;
+        mousePosY = event.clientY;
+
+        /* stars moving with the mouse */
+        starsX = (mousePosX - (windowWidth/2) ) / 1000;
+        starsX = starsX.toFixed(2);
+        console.log(starsX);
+
         /* Order up mousePosY with window.iinerHeight to match the change from mouse to new Rgb to Slider */
+        mousePosY = newRgbColor(mousePosY);
         slider.style.setProperty('--slider-bg-color', 'rgb(255,' + mousePosY +', 70');
         slider.style.setProperty('--slider-marginLeft', mousePosX + 'px');
     }
@@ -243,9 +257,7 @@ function checkColliosion(speedValue) {
 function gameLoop() {
     var timer = setInterval(function () {
         bumperPos--;
-
         starHandler();
-
         if (checkColliosion(bumperPos)) {
             text.innerHTML = 'Click to restart!';
             console.log('MouseRGB: ' + mousePosY + ' PassColor: ' + passThroughColor + ' Difference: ' + difference(mousePosY, passThroughColor));
