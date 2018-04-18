@@ -22,17 +22,17 @@ var opacity;
 var windowHeight;
 var windowWidth;
 var smallStars;
+var smallStarSpeed = 0.2;
 
 /* background effect with stars */
 var element = document.getElementById('canvas');
 var canvas = element.getContext("2d");
 
-function star(width, height, speed, yPos, xPos) {
+function star(width, height, yPos, xPos) {
     this.width = width;
     this.height = height;
     this.yPos = yPos;
     this.xPos = xPos;
-    this.speed = speed;
 }
 
 
@@ -48,10 +48,9 @@ window.onload = function () {
     element.width = window.innerWidth;
     element.height = window.innerHeight;
 
-    //loading stars
+    //loading stars, choosing size of stars etc.
     smallStars = [];
-    loadingStars(smallStars, 2);
-    console.log(smallStars.length);
+    loadingStars(2, smallStars, 200);
     restart();
 };
 
@@ -61,25 +60,10 @@ window.addEventListener('mousewheel', function (event) {
     }
   });
 
-function loadingStars(starArray, amount) {
+function loadingStars(size, starArray, amount) {
     for(var i = 0; i < amount; i++) {
-        starArray[i] = new star(25, 25, 1.5, randomPassThrough(0, element.height), randomPassThrough(0, element.width));
+        starArray[i] = new star(size, size, randomPassThrough(0, element.height), randomPassThrough(0, element.width));
     }
-}
-
-
-//FIXA SENARE//
-function newXPos() {
-    this.xPos = randomPassThrough(0, element.width);
-}
-
-function newYPos() {
-    this.yPos -= speed;
-    if(this.yPos <= 0) {
-        this.yPos = element.height;
-        newXPos();
-    }
-    return this.yPos;
 }
 
 function restart() {
@@ -191,12 +175,23 @@ function difference(x, y) {
   return Math.abs(x - y);
 }
 
-
 /* Star functions */
-function starHandler(test) {
+function newPosition(star, i, speed) {
+    star[i].yPos -= speed;
+    star[i].yPos = star[i].yPos.toFixed(2);
+    if(star[i].yPos <= 0) {
+        star[i].xPos = randomPassThrough(0, element.width);;
+        star[i].yPos = element.height;
+    }
+}
+
+function starHandler() {
 canvas.clearRect(0, 0, element.width, element.height);
+canvas.fillStyle = "#cbe5f8";
+
     for (var i = 0; i < smallStars.length; i++) {
-        canvas.fillRect(smallStars[i].xPos, smallStars[i].newYPos(), smallStars[i].height, smallStars[i].width);
+        canvas.fillRect(smallStars[i].xPos, smallStars[i].yPos, smallStars[i].height, smallStars[i].width);
+        newPosition(smallStars, i, smallStarSpeed);
     }
 }
 
@@ -249,7 +244,7 @@ function gameLoop() {
     var timer = setInterval(function () {
         bumperPos--;
 
-        starHandler(bumperPos);
+        starHandler();
 
         if (checkColliosion(bumperPos)) {
             text.innerHTML = 'Click to restart!';
