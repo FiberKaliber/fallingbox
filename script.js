@@ -1,4 +1,4 @@
-//elements from html&css
+/* elements from html&css */
 var slider = document.getElementById('slider');
 var bumper = document.getElementById('bumper');
 var passThrough = document.getElementById('passThrough');
@@ -6,7 +6,7 @@ var text = document.getElementById('textArea');
 var score = document.getElementById('score');
 var highScore = document.getElementById('highScore');
 
-//global variables
+/* global variables */
 var gameStart;
 var gameStopped;
 var bumperPos;
@@ -21,14 +21,37 @@ var scoreBool;
 var opacity;
 var windowHeight;
 var windowWidth;
+var smallStars;
+
+/* background effect with stars */
+var element = document.getElementById('canvas');
+var canvas = element.getContext("2d");
+
+function star(width, height, speed, yPos, xPos) {
+    this.width = width;
+    this.height = height;
+    this.yPos = yPos;
+    this.xPos = xPos;
+    this.speed = speed;
+}
+
 
 /* Reset the game */
 window.onload = function () {
-    //placeholder for highscore = 0
+    //placeholder for highscore = "0"
     tempHighScore = 0;
     windowHeight = window.innerHeight;
-    console.log(windowHeight);
     windowWidth = window.innerWidth;
+
+    //canvas size
+    canvas.translate(1, 1);
+    element.width = window.innerWidth;
+    element.height = window.innerHeight;
+
+    //loading stars
+    smallStars = [];
+    loadingStars(smallStars, 2);
+    console.log(smallStars.length);
     restart();
 };
 
@@ -37,6 +60,27 @@ window.addEventListener('mousewheel', function (event) {
       event.preventDefault();
     }
   });
+
+function loadingStars(starArray, amount) {
+    for(var i = 0; i < amount; i++) {
+        starArray[i] = new star(25, 25, 1.5, randomPassThrough(0, element.height), randomPassThrough(0, element.width));
+    }
+}
+
+
+//FIXA SENARE//
+function newXPos() {
+    this.xPos = randomPassThrough(0, element.width);
+}
+
+function newYPos() {
+    this.yPos -= speed;
+    if(this.yPos <= 0) {
+        this.yPos = element.height;
+        newXPos();
+    }
+    return this.yPos;
+}
 
 function restart() {
     text.innerHTML = 'Click to start';
@@ -148,6 +192,15 @@ function difference(x, y) {
 }
 
 
+/* Star functions */
+function starHandler(test) {
+canvas.clearRect(0, 0, element.width, element.height);
+    for (var i = 0; i < smallStars.length; i++) {
+        canvas.fillRect(smallStars[i].xPos, smallStars[i].newYPos(), smallStars[i].height, smallStars[i].width);
+    }
+}
+
+
 /* Event listener */
 document.addEventListener('click', function () {
     if (!gameStart) {
@@ -195,6 +248,9 @@ function checkColliosion(speedValue) {
 function gameLoop() {
     var timer = setInterval(function () {
         bumperPos--;
+
+        starHandler(bumperPos);
+
         if (checkColliosion(bumperPos)) {
             text.innerHTML = 'Click to restart!';
             console.log('MouseRGB: ' + mousePosY + ' PassColor: ' + passThroughColor + ' Difference: ' + difference(mousePosY, passThroughColor));

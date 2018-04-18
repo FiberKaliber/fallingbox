@@ -6,7 +6,7 @@
     z-index: 0;
     letter-spacing: 1px;
     word-spacing: 2px;
-  //  cursor: none;
+    cursor: none;
 }
 
 /* variables */
@@ -26,7 +26,9 @@ body {
     height: 100vh;
 }
 
-
+#canvas {
+    position: fixed;
+}
 
 
 /* Slider & GameArea */
