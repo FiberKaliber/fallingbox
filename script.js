@@ -180,18 +180,19 @@ function difference(x, y) {
 
 /* Star functions */
 function newPosition(star, i, speed) {
-
+    /* Stars speed bottom-to-top && speed moving left-to-right */
     star[i].yPos -= speed;
     star[i].xPos -= starsX;
-
     star[i].yPos = star[i].yPos.toFixed(2);
     star[i].xPos = star[i].xPos.toFixed(2);
 
+    /* Stars change xPos when hitting window wall */
     if(star[i].xPos >= element.width) {
         star[i].xPos = 0;
     } else if (star[i].xPos <= 0) {
         star[i].xPos = element.width;
     }
+
     /* Star gets back to starPosition on Y-angle */
     if(star[i].yPos <= 0) {
         star[i].xPos = randomPassThrough(0, element.width);
