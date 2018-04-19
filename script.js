@@ -52,7 +52,7 @@ window.onload = function () {
 
     //loading stars, choosing size of stars etc.
     smallStars = [];
-    loadingStars(2, smallStars, 200);
+    loadingStars(2, smallStars, 1000);
     restart();
 };
 
@@ -177,20 +177,19 @@ function difference(x, y) {
   return Math.abs(x - y);
 }
 
+
 /* Star functions */
 function newPosition(star, i, speed) {
+
     star[i].yPos -= speed;
+    star[i].xPos -= starsX;
+
     star[i].yPos = star[i].yPos.toFixed(2);
+    star[i].xPos = star[i].xPos.toFixed(2);
 
-
-    if(starsX > 0 && (star[i].xPos + starsX) < windowWidth) {
-        star[i].xPos += starsX;
-    } else if (starsX < 0 && (star[i].xPos - starsX) >= 0) {
-        star[i].xPos -= starsX;
-    }
-
+    /* Star gets back to starPosition on Y-angle */
     if(star[i].yPos <= 0) {
-        star[i].xPos = randomPassThrough(0, element.width);;
+        star[i].xPos = randomPassThrough(0, element.width);
         star[i].yPos = element.height;
     }
 }
@@ -199,8 +198,9 @@ function starHandler() {
 canvas.clearRect(0, 0, element.width, element.height);
 canvas.fillStyle = "#cbe5f8";
     for (var i = 0; i < smallStars.length; i++) {
-        canvas.fillRect(smallStars[i].xPos, smallStars[i].yPos, smallStars[i].height, smallStars[i].width);
         newPosition(smallStars, i, smallStarSpeed);
+        canvas.fillRect(smallStars[i].xPos, smallStars[i].yPos, smallStars[i].height, smallStars[i].width);
+
     }
 }
 
@@ -223,9 +223,8 @@ document.addEventListener('mousemove', function () {
         mousePosY = event.clientY;
 
         /* stars moving with the mouse */
-        starsX = (mousePosX - (windowWidth/2) ) / 1000;
+        starsX = (mousePosX - (windowWidth/2) ) / 2000;
         starsX = starsX.toFixed(2);
-        console.log(starsX);
 
         /* Order up mousePosY with window.iinerHeight to match the change from mouse to new Rgb to Slider */
         mousePosY = newRgbColor(mousePosY);
