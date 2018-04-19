@@ -187,6 +187,11 @@ function newPosition(star, i, speed) {
     star[i].yPos = star[i].yPos.toFixed(2);
     star[i].xPos = star[i].xPos.toFixed(2);
 
+    if(star[i].xPos >= element.width) {
+        star[i].xPos = 0;
+    } else if (star[i].xPos <= 0) {
+        star[i].xPos = element.width;
+    }
     /* Star gets back to starPosition on Y-angle */
     if(star[i].yPos <= 0) {
         star[i].xPos = randomPassThrough(0, element.width);
