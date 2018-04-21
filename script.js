@@ -7,7 +7,6 @@ var score = document.getElementById('score');
 var highScore = document.getElementById('highScore');
 
 /* global variables */
-var event = window.event;
 var starsX;
 var gameStart;
 var gameStopped;
@@ -25,6 +24,8 @@ var windowHeight;
 var windowWidth;
 var smallStars;
 var smallStarSpeed = 0.2;
+var mediumStars;
+var mediumStarSpeed = 0.4;
 
 /* background effect with stars */
 var element = document.getElementById('canvas');
@@ -52,7 +53,9 @@ window.onload = function () {
 
     //loading stars, choosing size of stars etc.
     smallStars = [];
-    loadingStars(2, smallStars, 1000);
+    mediumStars = [];
+    loadingStars(2, smallStars, 100);
+    loadingStars(3, mediumStars, 10);
     restart();
 };
 
@@ -177,7 +180,6 @@ function difference(x, y) {
   return Math.abs(x - y);
 }
 
-
 /* Star functions */
 function newPosition(star, i, speed) {
     /* Stars speed bottom-to-top && speed moving left-to-right */
@@ -206,7 +208,10 @@ canvas.fillStyle = "#cbe5f8";
     for (var i = 0; i < smallStars.length; i++) {
         newPosition(smallStars, i, smallStarSpeed);
         canvas.fillRect(smallStars[i].xPos, smallStars[i].yPos, smallStars[i].height, smallStars[i].width);
-
+            if(mediumStars.length > i) {
+            newPosition(mediumStars, i, mediumStarSpeed);
+            canvas.fillRect(mediumStars[i].xPos, mediumStars[i].yPos, mediumStars[i].height, smallStars[i].width);
+        }
     }
 }
 
@@ -225,6 +230,7 @@ document.addEventListener('click', function () {
 
 document.addEventListener('mousemove', function () {
     if (!gameStopped) {
+        var event = window.event;
         mousePosX = event.clientX - 35;
         mousePosY = event.clientY;
 
