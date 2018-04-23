@@ -22,20 +22,19 @@ var scoreBool;
 var opacity;
 var windowHeight;
 var windowWidth;
-var smallStars;
-var smallStarSpeed = 0.2;
-var mediumStars;
-var mediumStarSpeed = 0.4;
+var starsArray = [];
 
 /* background effect with stars */
 var element = document.getElementById('canvas');
 var canvas = element.getContext("2d");
 
-function star(width, height, yPos, xPos) {
+function star(width, height, yPos, xPos, ySpeed, xSpeed) {
     this.width = width;
     this.height = height;
     this.yPos = yPos;
     this.xPos = xPos;
+    this.ySpeed = ySpeed;
+    this.xSpeed = xSpeed;
 }
 
 
@@ -52,10 +51,14 @@ window.onload = function () {
     element.height = window.innerHeight;
 
     //loading stars, choosing size of stars etc.
-    smallStars = [];
-    mediumStars = [];
-    loadingStars(2, smallStars, 100);
-    loadingStars(3, mediumStars, 10);
+    var smallStars = [];
+    var mediumStars = [];
+    var bigStars = [];
+    loadingStars(2, smallStars, 100, 0.2, 1);
+    loadingStars(3, mediumStars, 10, 0.4, 1.3);
+    loadingStars(5, bigStars, 3, 0.6, 1.6);
+
+    starsArray = starsArray.concat(smallStars, mediumStars, bigStars);
     restart();
 };
 
@@ -65,9 +68,9 @@ window.addEventListener('mousewheel', function (event) {
     }
   });
 
-function loadingStars(size, starArray, amount) {
+function loadingStars(size, starArray, amount, ySpeed, xSpeed) {
     for(var i = 0; i < amount; i++) {
-        starArray[i] = new star(size, size, randomPassThrough(0, element.height), randomPassThrough(0, element.width));
+        starArray[i] = new star(size, size, randomPassThrough(0, element.height), randomPassThrough(0, element.width), ySpeed, xSpeed);
     }
 }
 
@@ -181,9 +184,9 @@ function difference(x, y) {
 }
 
 /* Star functions */
-function newPosition(star, i, speed) {
+function newPosition(star, i, ySpeed, starsX) {
     /* Stars speed bottom-to-top && speed moving left-to-right */
-    star[i].yPos -= speed;
+    star[i].yPos -= ySpeed;
     star[i].xPos -= starsX;
     star[i].yPos = star[i].yPos.toFixed(2);
     star[i].xPos = star[i].xPos.toFixed(2);
@@ -205,13 +208,10 @@ function newPosition(star, i, speed) {
 function starHandler() {
 canvas.clearRect(0, 0, element.width, element.height);
 canvas.fillStyle = "#cbe5f8";
-    for (var i = 0; i < smallStars.length; i++) {
-        newPosition(smallStars, i, smallStarSpeed);
-        canvas.fillRect(smallStars[i].xPos, smallStars[i].yPos, smallStars[i].height, smallStars[i].width);
-            if(mediumStars.length > i) {
-            newPosition(mediumStars, i, mediumStarSpeed);
-            canvas.fillRect(mediumStars[i].xPos, mediumStars[i].yPos, mediumStars[i].height, smallStars[i].width);
-        }
+
+    for (var i = 0; i < starsArray.length; i++) {
+        newPosition(starsArray, i, starsArray[i].ySpeed, (starsX * starsArray[i].xSpeed));
+        canvas.fillRect(starsArray[i].xPos, starsArray[i].yPos, starsArray[i].height, starsArray[i].width);
     }
 }
 
@@ -231,17 +231,17 @@ document.addEventListener('click', function () {
 document.addEventListener('mousemove', function () {
     if (!gameStopped) {
         var event = window.event;
-        mousePosX = event.clientX - 35;
+        mousePosX = event.clientX;
         mousePosY = event.clientY;
 
         /* stars moving with the mouse */
-        starsX = (mousePosX - (windowWidth/2) ) / 2000;
+        starsX = (mousePosX - (windowWidth/2) ) / 5000;
         starsX = starsX.toFixed(2);
 
         /* Order up mousePosY with window.iinerHeight to match the change from mouse to new Rgb to Slider */
         mousePosY = newRgbColor(mousePosY);
         slider.style.setProperty('--slider-bg-color', 'rgb(255,' + mousePosY +', 70');
-        slider.style.setProperty('--slider-marginLeft', mousePosX + 'px');
+        slider.style.setProperty('--slider-marginLeft', mousePosX - 35 + 'px');
     }
 });
 
