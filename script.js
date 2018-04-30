@@ -16,7 +16,7 @@ var passThroughWidth;
 var passThroughColor;
 var mousePosX;
 var mousePosY;
-var newScore;
+var newScore = 0;
 var tempHighScore;
 var scoreBool;
 var opacity;
@@ -40,8 +40,10 @@ function star(width, height, yPos, xPos, ySpeed, xSpeed) {
 
 /* Reset the game */
 window.onload = function () {
+
     //placeholder for highscore = "0"
     tempHighScore = 0;
+
     windowHeight = window.innerHeight;
     windowWidth = window.innerWidth;
 
@@ -75,9 +77,17 @@ function loadingStars(size, starArray, amount, ySpeed, xSpeed) {
 }
 
 function restart() {
+    newHighScore(newScore, tempHighScore);
+    newScore = 0;
+    opacity = 0;
+    score.innerHTML = newScore.toString();
+    resetBool();
+    resetPosition();
+    setPassThrough();
+    newPassThrough();
+    bumper.style.setProperty('--bumper-marginTop', bumperPos + 'px');
     text.innerHTML = 'Click to start';
     highScore.innerHTML = 'Highscore: ' + tempHighScore;
-    resetGame();
 }
 
 function newHighScore(a, b) {
@@ -102,17 +112,6 @@ function setPassThrough() {
     passThroughWidth = 300;
 }
 
-function resetGame() {
-    newHighScore(newScore, tempHighScore);
-    newScore = 0;
-    opacity = 0;
-    score.innerHTML = newScore.toString();
-    resetBool();
-    resetPosition();
-    setPassThrough();
-    newPassThrough();
-    bumper.style.setProperty('--bumper-marginTop', bumperPos + 'px');
-}
 
 
 /* New Random passThrough & bumper position */
