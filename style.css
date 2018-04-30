@@ -1,4 +1,5 @@
 * {
+    font-family: Chicle, Verdana, Arial;
     margin-left: 0;
     margin-top: 0;
     margin-bottom: 0;
@@ -6,7 +7,48 @@
     z-index: 0;
     letter-spacing: 1px;
     word-spacing: 2px;
-    cursor: none;
+    //cursor: none;
+}
+
+/* Login/startPage*/
+
+.infoClass div {
+    position: fixed;
+}
+
+#infoDiv {
+    top: 20%;
+    width: 100%;
+}
+
+#titleBox {
+    position: relative;
+    width: 600px;
+    height: 100px;
+    left: 50%;
+    margin-bottom: 2%;
+    margin-left: -300px;
+}
+
+#title {
+    position: absolute;
+    color: #cbe5f8;
+    text-shadow: 2px 2px 4px #000000;
+    font-size: 70px;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+#loginBox {
+    background-color: #ffd27f;
+    box-shadow: 2px 2px 4px #000000;
+    left: 50%;
+    margin-left: -300px;
+    width: 600px;
+    height: 300px;
+    border-radius: 5px;
 }
 
 /* variables */
@@ -19,7 +61,6 @@ html {
     --pass-bg-color: rgb(255, 150, 70);
     --bumper-opacity: 1.0;
 }
-
 
 body {
     background: linear-gradient(rgba(45, 68, 85), rgba(36, 54, 68));
@@ -48,7 +89,6 @@ body {
 /* Text around slider */
 .textClass {
     position: fixed;
-    font-family: Chicle, Verdana, Arial;
     letter-spacing: 3px;
     color: #cbe5f8;
     text-align: center;
@@ -82,7 +122,6 @@ body {
     color: #3f6077;
     font-size: 64px;
     text-align: right;
-
 }
 
 #bumper {
