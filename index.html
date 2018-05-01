@@ -10,14 +10,26 @@
     <body>
 
         <div class="infoClass">
+
             <div id="infoDiv">
                 <div id="titleBox">
                     <p id="title">Falling Box</p>
                 </div>
+
                 <div id="loginBox">
-                    <a href="game.html">start game</a>
+                    <p class="loginText" id="userNameText">Username</p>
+                    <input type="text" id="username" class="input">
+                    <p class="loginText">Password</p>
+                    <input type="password" id="password" class="input">
+
+                    <a href="game.html"><button class="button" id="guest">Play as a guest</button></a>
+
+                    <button class="button" id="loginButton">Login</button>
+
                 </div>
+
             </div>
         </div>
+        <script src="loginScript.js"></script>
     </body>
 </html>
