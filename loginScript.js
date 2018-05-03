@@ -1,12 +1,50 @@
 var username = document.getElementById("username");
 var password = document.getElementById("password");
+var usernameBorder = false;
+var passwordBorder = false;
+var loginButton = document.getElementById("loginButton");
+
+
+/* Input */
+loginButton.addEventListener('click', function() {
+
+    var input = true;
+
+    if(!username.value) {
+        username.style.setProperty('--border-style-username', 'crimson');
+        input = false;
+    }
+
+    if(!password.value) {
+        password.style.setProperty('--border-style-password', 'crimson');
+        input = false;
+    }
+
+    if(!input) {
+        console.log("No input");
+    } else if (input) {
+        console.log("Good input");
+    }
+});
+
+
+function changeBorder(Event) {
+    var target = Event.target.id;
+
+    if(target === username.id) {
+        username.style.setProperty('--border-style-username', 'white');
+    } else if (target === password.id) {
+        password.style.setProperty('--border-style-password', 'white');
+    }
+}
+
 
 
 /* background effect with stars */
 var element = document.getElementById('canvas');
 var canvas = element.getContext("2d");
 var starsArray = [];
-var starsX;
+var starsX = 0;
 var mousePosX;
 
 function star(width, height, yPos, xPos, ySpeed, xSpeed) {
@@ -17,7 +55,6 @@ function star(width, height, yPos, xPos, ySpeed, xSpeed) {
     this.ySpeed = ySpeed;
     this.xSpeed = xSpeed;
 }
-
 
 window.onload = function() {
     windowHeight = window.innerHeight;
@@ -39,6 +76,15 @@ window.onload = function() {
     gameLoop();
 };
 
+document.addEventListener('mousemove', function () {
+        var event = window.event;
+        mousePosX = event.clientX;
+
+        /* stars moving with the mouse */
+        starsX = (mousePosX - (windowWidth/2) ) / 5000;
+        starsX = starsX.toFixed(2);
+});
+
 function randomPassThrough(max, min) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -48,7 +94,6 @@ function loadingStars(size, starArray, amount, ySpeed, xSpeed) {
         starArray[i] = new star(size, size, randomPassThrough(0, element.height), randomPassThrough(0, element.width), ySpeed, xSpeed);
     }
 }
-
 
 function newPosition(star, i, ySpeed, starsX) {
     /* Stars speed bottom-to-top && speed moving left-to-right */
@@ -81,19 +126,10 @@ canvas.fillStyle = "#cbe5f8";
     }
 }
 
-
-document.addEventListener('mousemove', function () {
-        var event = window.event;
-        mousePosX = event.clientX;
-
-        /* stars moving with the mouse */
-        starsX = (mousePosX - (windowWidth/2) ) / 5000;
-        starsX = starsX.toFixed(2);
-});
-
-
 function gameLoop() {
     var timer = setInterval(function () {
         starHandler();
     }, 1);
 }
+
+

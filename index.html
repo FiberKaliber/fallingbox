@@ -15,18 +15,19 @@
                 </div>
                 <div id="opacityDiv"></div>
                 <div id="loginBox">
+
                     <p class="loginText" id="userNameText">Username</p>
-                    <input type="text" id="username" class="input">
+                        <input spellcheck="false" type="text" id="username" class="input" oninput="changeBorder(event)">
+
                     <p class="loginText">Password</p>
-                    <input type="password" id="password" class="input">
+                        <input spellcheck="false" type="password" id="password" class="input" oninput="changeBorder(event)">
 
-                   <button class="button" id="newUser">Create new user</button>
-
+                    <button class="button" id="newUser">Create new user</button>
                     <button class="button" id="loginButton">Login</button>
 
-                     <a href="game.html"><button class="button" id="guest">Play as a guest</button></a>
-                </div>
+                    <a href="game.html"><button class="button" id="guest">Play as a guest</button></a>
 
+                </div>
             </div>
         </div>
         <canvas id="canvas" width="100%" height="100%"></canvas>

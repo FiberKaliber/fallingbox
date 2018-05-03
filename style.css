@@ -51,7 +51,7 @@
     bottom: 2px;
     margin-left: 85px;
     margin-top: 10px;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 #userNameText {
@@ -59,12 +59,24 @@
 }
 
 .input {
+    font-family: Verdana, Arial;
     position: relative;
-    font-size: 18px;
+    border-radius: 3px;
+    font-size: 16px;
     width: 250px;
     height: 26px;
     margin-left: 80px;
-    border: none;
+    border: solid;
+    border-color: white;
+    transition: 0.5s;
+}
+
+#password {
+    border-color: var(--border-style-password);
+}
+
+#username {
+    border-color: var(--border-style-username);
 }
 
 .infoClass div {
@@ -98,7 +110,7 @@
 
 #loginBox {
     width: 400px;
-    height: 280px;
+    height: 300px;
     left: 50%;
     margin-left: -200px;
 }
@@ -109,10 +121,11 @@
     left: 50%;
     margin-left: -200px;
     width: 400px;
-    height: 280px;
+    height: 300px;
     border-radius: 5px;
     opacity: 0.6;
 }
+
 /* variables */
 html {
     --slider-marginLeft: 45%;
@@ -122,6 +135,10 @@ html {
     --slider-bg-color: rgb(255, 150, 70);
     --pass-bg-color: rgb(255, 150, 70);
     --bumper-opacity: 1.0;
+
+    /* input border, color and style */
+    --border-style-password: white;
+    --border-style-username: white;
 }
 
 

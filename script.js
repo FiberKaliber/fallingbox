@@ -7,7 +7,7 @@ var score = document.getElementById('score');
 var highScore = document.getElementById('highScore');
 
 /* global variables */
-var starsX;
+var starsX = 0;
 var gameStart;
 var gameStopped;
 var bumperPos;
