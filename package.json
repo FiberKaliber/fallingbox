@@ -1,0 +1,25 @@
+{
+  "name": "fallingbox",
+  "version": "1.0.0",
+  "description": "game in html/css/js",
+  "main": "loginScript.js",
+  "scripts": {
+    "start": "http://localhost:1234",
+    "open": "start http://localhost:1234",
+    "stop": "http://localhost:1234"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FiberKaliber/fallingbox.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FiberKaliber/fallingbox/issues"
+  },
+  "homepage": "https://github.com/FiberKaliber/fallingbox#readme",
+  "dependencies": {
+    "http-server": "^0.11.1",
+    "server-terminate": "^1.5.0"
+  }
+}
