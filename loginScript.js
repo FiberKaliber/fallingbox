@@ -1,8 +1,9 @@
 var username = document.getElementById("username");
 var playButton = document.getElementById("playButton");
 var highscoreButton = document.getElementById("highscoreButton");
+var opacityDiv = document.getElementById("opacityDiv");
 var usernameBorder = false;
-
+var div;
 
 playButton.addEventListener('click', function() {
     
@@ -16,25 +17,14 @@ playButton.addEventListener('click', function() {
 });
 
 highscoreButton.addEventListener('click', function() {
-        console.log("highscore");
-        var div = document.createElement("DIV");   
-        div.style.width = "100px";
-        div.style.height = "100px";
-        div.style.background = "red";
-        div.style.color = "white";  // Create a <button> element
-        var text = document.createTextNode("TEST DIV");       // Create a text node
-        div.appendChild(text);         
-        document.getElementById("loginBox").appendChild(div);             
+        if(!opacityDiv.hasChildNodes()) { 
+            console.log(div);         
+            opacityDiv.appendChild(div);    
+        } else if (opacityDiv.hasChildNodes()){
+           opacityDiv.removeChild(div);
+        }
 });
 
-function changeBorder(Event) {
-    var target = Event.target.id;
-    console.log("change border on username input");
-    if(target === username.id) {
-        username.placeholder = "";
-        username.style.setProperty('--border-style-username', 'white');
-    } 
-}
 
 document.addEventListener('click', function (event) {
     if(event.srcElement.className != "button") {
@@ -46,8 +36,23 @@ document.addEventListener('click', function (event) {
 
 });
 
+function changeBorder(Event) {
+    var target = Event.target.id;
+    console.log("change border on username input");
+    if(target === username.id) {
+        username.placeholder = "";
+        username.style.setProperty('--border-style-username', 'white');
+    } 
+}
 
-/* background effect with stars */
+function createHighScoreDiv() {
+    div = document.createElement("DIV");   
+    div.setAttribute('id', 'loginBox');
+    var text = document.createTextNode("TEST DIV");       
+    div.appendChild(text);           
+}
+
+// background effect with stars 
 var element = document.getElementById('canvas');
 var canvas = element.getContext("2d");
 var starsArray = [];
@@ -72,11 +77,14 @@ window.addEventListener('resize', function(){
   });
 
 window.onload = function() {
+    //Create highscore div
+    createHighScoreDiv();
     username.style.setProperty('--transition-username', '0.5s');
-    windowHeight = window.innerHeight;
-    windowWidth = window.innerWidth;
+
 
     //canvas size
+    windowHeight = window.innerHeight;
+    windowWidth = window.innerWidth;
     canvas.translate(1, 1);
     element.width = window.innerWidth;
     element.height = window.innerHeight;
