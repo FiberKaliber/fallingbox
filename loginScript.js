@@ -1,21 +1,31 @@
 var username = document.getElementById("username");
 var playButton = document.getElementById("playButton");
+var highscoreButton = document.getElementById("highscoreButton");
 var usernameBorder = false;
 
 
-/* Input */
 playButton.addEventListener('click', function() {
-
+    
     if(!username.value) {
-        console.log("No input");
+        console.log("No username value");
         username.placeholder = "Username...";
         username.style.setProperty('--border-style-username', 'crimson');
     } else if(username.value) {
-        console.log("Good input");
         window.location.href = "game.html";
     }
 });
 
+highscoreButton.addEventListener('click', function() {
+        console.log("highscore");
+        var div = document.createElement("DIV");   
+        div.style.width = "100px";
+        div.style.height = "100px";
+        div.style.background = "red";
+        div.style.color = "white";  // Create a <button> element
+        var text = document.createTextNode("TEST DIV");       // Create a text node
+        div.appendChild(text);         
+        document.getElementById("loginBox").appendChild(div);             
+});
 
 function changeBorder(Event) {
     var target = Event.target.id;
@@ -27,7 +37,6 @@ function changeBorder(Event) {
 }
 
 document.addEventListener('click', function (event) {
-
     if(event.srcElement.className != "button") {
         if (event.srcElement.id != username.id) {
             username.placeholder = "Username...";
@@ -63,6 +72,7 @@ window.addEventListener('resize', function(){
   });
 
 window.onload = function() {
+    username.style.setProperty('--transition-username', '0.5s');
     windowHeight = window.innerHeight;
     windowWidth = window.innerWidth;
 

@@ -64,9 +64,8 @@
     padding-left: 5px;
     border: solid;
     border-color: var(--border-style-username);
-    transition: 0.5s;
+    transition: var(--transition-username); 
 }
-
 
 /* Infobox with playbutton, highscore and title */
 .infoClass div {
@@ -128,6 +127,7 @@ html {
 
     /* input border, color and style */
     --border-style-username: white;
+    --transition-username: 0s;
 }
 
 
