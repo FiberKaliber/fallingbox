@@ -4,9 +4,7 @@
   "description": "game in html/css/js",
   "main": "loginScript.js",
   "scripts": {
-    "start": "http://localhost:1234",
-    "open": "start http://localhost:1234",
-    "stop": "http://localhost:1234"
+    "start": "index.html"
   },
   "repository": {
     "type": "git",

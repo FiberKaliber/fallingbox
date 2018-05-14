@@ -1,43 +1,41 @@
 var username = document.getElementById("username");
-var password = document.getElementById("password");
+var playButton = document.getElementById("playButton");
 var usernameBorder = false;
-var passwordBorder = false;
-var loginButton = document.getElementById("loginButton");
 
 
 /* Input */
-loginButton.addEventListener('click', function() {
-
-    var input = true;
+playButton.addEventListener('click', function() {
 
     if(!username.value) {
-        username.style.setProperty('--border-style-username', 'crimson');
-        input = false;
-    }
-
-    if(!password.value) {
-        password.style.setProperty('--border-style-password', 'crimson');
-        input = false;
-    }
-
-    if(!input) {
         console.log("No input");
-    } else if (input) {
+        username.placeholder = "Username...";
+        username.style.setProperty('--border-style-username', 'crimson');
+    } else if(username.value) {
         console.log("Good input");
+        window.location.href = "game.html";
     }
 });
 
 
 function changeBorder(Event) {
     var target = Event.target.id;
-
+    console.log("change border on username input");
     if(target === username.id) {
+        username.placeholder = "";
         username.style.setProperty('--border-style-username', 'white');
-    } else if (target === password.id) {
-        password.style.setProperty('--border-style-password', 'white');
-    }
+    } 
 }
 
+document.addEventListener('click', function (event) {
+
+    if(event.srcElement.className != "button") {
+        if (event.srcElement.id != username.id) {
+            username.placeholder = "Username...";
+            }
+        username.style.setProperty('--border-style-username', 'white');
+    } 
+
+});
 
 
 /* background effect with stars */
@@ -55,6 +53,14 @@ function star(width, height, yPos, xPos, ySpeed, xSpeed) {
     this.ySpeed = ySpeed;
     this.xSpeed = xSpeed;
 }
+
+window.addEventListener('resize', function(){
+    windowHeight = window.innerHeight;
+    windowWidth = window.innerWidth;
+    canvas.translate(1, 1);
+    element.width = window.innerWidth;
+    element.height = window.innerHeight;
+  });
 
 window.onload = function() {
     windowHeight = window.innerHeight;
