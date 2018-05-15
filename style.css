@@ -97,12 +97,13 @@
     transform: translate(-50%, -50%);
 }
 
-#loginBox {
+#loginBox, #highscoreBox, #loginDiv {
     width: 350px;
     height: 250px;
     left: 50%;
     margin-left: -175px;
 }
+
 
 #opacityDiv {
     background-color: #add8e6;

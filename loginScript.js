@@ -1,12 +1,13 @@
-var username = document.getElementById("username");
 var playButton = document.getElementById("playButton");
 var highscoreButton = document.getElementById("highscoreButton");
 var opacityDiv = document.getElementById("opacityDiv");
+var loginBox = document.getElementById("loginBox");
 var usernameBorder = false;
-var div;
+var highscoreDiv;
+var loginDiv;
+var username;
 
-playButton.addEventListener('click', function() {
-    
+function startGame() {
     if(!username.value) {
         console.log("No username value");
         username.placeholder = "Username...";
@@ -14,16 +15,17 @@ playButton.addEventListener('click', function() {
     } else if(username.value) {
         window.location.href = "game.html";
     }
-});
+}
 
-highscoreButton.addEventListener('click', function() {
-        if(!opacityDiv.hasChildNodes()) { 
-            console.log(div);         
-            opacityDiv.appendChild(div);    
-        } else if (opacityDiv.hasChildNodes()){
-           opacityDiv.removeChild(div);
+function showHighscore(){
+        if(loginBox.firstChild.id === "loginDiv") { 
+            loginBox.removeChild(loginDiv);   
+            loginBox.appendChild(highscoreDiv);    
+        } else if (loginBox.firstChild.id === "highscoreBox"){
+            loginBox.removeChild(highscoreDiv);
+            loginBox.appendChild(loginDiv); 
         }
-});
+}
 
 
 document.addEventListener('click', function (event) {
@@ -33,23 +35,35 @@ document.addEventListener('click', function (event) {
             }
         username.style.setProperty('--border-style-username', 'white');
     } 
-
 });
 
 function changeBorder(Event) {
     var target = Event.target.id;
-    console.log("change border on username input");
     if(target === username.id) {
         username.placeholder = "";
         username.style.setProperty('--border-style-username', 'white');
     } 
 }
 
+//Create Highscore div && LoginDiv with buttons
+function createLoginDiv() {
+    loginDiv = document.createElement('div');
+    loginDiv.id = 'loginDiv';
+    loginDiv.innerHTML = 
+        '<input placeholder="Username..." spellcheck="false" type="text" id="username" onfocus="changeBorder(event)">\
+        <button class="button" id="playButton" onclick="startGame()">Play</button>\
+        <button class="button" id="highscoreButton" onclick="showHighscore()">Highscore</button>';
+        loginBox.appendChild(loginDiv);
+        username = document.getElementById("username");
+}
+
 function createHighScoreDiv() {
-    div = document.createElement("DIV");   
-    div.setAttribute('id', 'loginBox');
-    var text = document.createTextNode("TEST DIV");       
-    div.appendChild(text);           
+    highscoreDiv = document.createElement("DIV");   
+    highscoreDiv.id = ('highscoreBox');
+    highscoreDiv.innerHTML =
+    '<button class="button" id="highscoreButton" onclick="showHighscore()">Back</button>';
+   // var button = document.createTextNode("TEST DIV");       
+   // highscoreDiv.appendChild(button);           
 }
 
 // background effect with stars 
@@ -78,8 +92,9 @@ window.addEventListener('resize', function(){
 
 window.onload = function() {
     //Create highscore div
+    createLoginDiv();
     createHighScoreDiv();
-    username.style.setProperty('--transition-username', '0.5s');
+    
 
 
     //canvas size
