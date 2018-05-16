@@ -2,6 +2,7 @@ var playButton = document.getElementById("playButton");
 var highscoreButton = document.getElementById("highscoreButton");
 var opacityDiv = document.getElementById("opacityDiv");
 var loginBox = document.getElementById("loginBox");
+var html = document.getElementsByTagName('html')[0];
 var usernameBorder = false;
 var highscoreDiv;
 var loginDiv;
@@ -19,14 +20,15 @@ function startGame() {
 
 function showHighscore(){
         if(loginBox.firstChild.id === "loginDiv") { 
+            html.style.setProperty('--box-height', '530px');
             loginBox.removeChild(loginDiv);   
-            loginBox.appendChild(highscoreDiv);    
+            loginBox.appendChild(highscoreDiv);  
         } else if (loginBox.firstChild.id === "highscoreBox"){
             loginBox.removeChild(highscoreDiv);
+            html.style.setProperty('--box-height', '250px');
             loginBox.appendChild(loginDiv); 
         }
 }
-
 
 document.addEventListener('click', function (event) {
     if(event.srcElement.className != "button") {
@@ -60,11 +62,40 @@ function createLoginDiv() {
 function createHighScoreDiv() {
     highscoreDiv = document.createElement("DIV");   
     highscoreDiv.id = ('highscoreBox');
-    highscoreDiv.innerHTML =
-    '<button class="button" id="highscoreButton" onclick="showHighscore()">Back</button>';
-   // var button = document.createTextNode("TEST DIV");       
-   // highscoreDiv.appendChild(button);           
+
+    var table = document.createElement('table'), tableRow, tableData, thead, headTable;
+    headTable = document.createElement('table');
+    tableRow = document.createElement('tr');
+
+    /* Name and score */
+    for(i = 0; i < 2; i++) {
+        thead = document.createElement('th');
+        thead.innerHTML = 'Name';
+        tableRow.appendChild(thead);
+    }
+    tableRow.id = ('firstTr');
+    headTable.appendChild(tableRow);
+    highscoreDiv.appendChild(headTable);
+    
+    /* Users score on each row */
+    for (row = 0; row < 15; row++) {
+        tableRow = document.createElement('tr');
+        for(cell = 0; cell < 2; cell++) {
+            tableData = document.createElement('td');
+            tableData.innerHTML = 'hej' + row;
+            tableRow.appendChild(tableData);
+        }
+        table.appendChild(tableRow);
+    }
+    table.id = ('scoreTable');
+    highscoreDiv.appendChild(table);
+
+    var divButton = document.createElement('div');
+    divButton.id = ('backDiv');
+    divButton.innerHTML = '<button class="button" id="highscoreButton" onclick="showHighscore()">Back</button>';
+    highscoreDiv.appendChild(divButton);
 }
+
 
 // background effect with stars 
 var element = document.getElementById('canvas');

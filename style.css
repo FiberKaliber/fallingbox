@@ -34,7 +34,6 @@
 
 #highscoreButton {
     background: linear-gradient(rgba(45, 68, 85), rgba(36, 54, 68));
-    
 }
 
 /* Hover on .button, playButton and highscoreButton */
@@ -64,7 +63,7 @@
     padding-left: 5px;
     border: solid;
     border-color: var(--border-style-username);
-    transition: var(--transition-username); 
+    transition: var(--transition); 
 }
 
 /* Infobox with playbutton, highscore and title */
@@ -99,7 +98,7 @@
 
 #loginBox, #highscoreBox, #loginDiv {
     width: 350px;
-    height: 250px;
+    height: var(--box-height);
     left: 50%;
     margin-left: -175px;
 }
@@ -111,9 +110,62 @@
     left: 50%;
     margin-left: -175px;
     width: 350px;
-    height: 250px;
+    height: var(--box-height);
     border-radius: 5px;
     opacity: 0.4;
+    transition: 0.5s;
+}
+
+/* users highscore and name */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    color: white;
+    display: block;
+}
+
+#scoreTable {
+    height: 410px; 
+    overflow-y: auto;    
+    overflow-x: hidden;  
+}
+
+#scoreTable::-webkit-scrollbar {
+    display: none;
+   }
+
+th, td {
+    font-family: Chivo;
+    color: #ffd27f;
+    text-align: left;
+}
+
+th {
+    padding-right: 156px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 18px;
+}
+
+td {
+    color: white;
+    width: 100%;
+    padding: 9px;
+    padding-right: 60px;
+    padding-left: 20px;
+}
+
+tr:nth-child(odd)  {
+    background-color: #1e5e74;
+}
+
+#firstTr {
+    background-color: transparent;
+}
+
+
+#backDiv {
+    margin-top: 5px;
 }
 
 /* variables */
@@ -128,7 +180,8 @@ html {
 
     /* input border, color and style */
     --border-style-username: white;
-    --transition-username: 0s;
+    --transition: 0.5s;
+    --box-height: 250px;
 }
 
 
