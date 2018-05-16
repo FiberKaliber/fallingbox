@@ -1,0 +1,29 @@
+
+{
+    "title": {
+        "loginpage":"Falling Box",
+        "highscorepage":"Highscore"},
+
+    "highscoretitle": ["Name","Score"],
+
+    "users":[
+        ["Karl76","1452"], 
+        ["Knasen","1232"], 
+        ["Bängan", "999"], 
+        ["ThePunisher","967"], 
+        ["SuperEvil","867"], 
+        ["FiberKaliber","768"], 
+        ["Elu","563"], 
+        ["megaDude","433"], 
+        ["RianG","431"], 
+        ["SpuderMen","345"], 
+        ["ChickenDinner","341"], 
+        ["M4ast3r","231"], 
+        ["Califurnia","211"], 
+        ["GG","200"], 
+        ["spl","56"]
+    ]
+}
+
+
+        

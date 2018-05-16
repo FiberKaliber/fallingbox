@@ -3,14 +3,28 @@ var highscoreButton = document.getElementById("highscoreButton");
 var opacityDiv = document.getElementById("opacityDiv");
 var loginBox = document.getElementById("loginBox");
 var html = document.getElementsByTagName('html')[0];
+var title = document.getElementById('title');
 var usernameBorder = false;
 var highscoreDiv;
 var loginDiv;
 var username;
+var myData;
+
+//SO SLOW!!!
+var xhr = new XMLHttpRequest();
+xhr.open('GET', 'data.json', true);
+xhr.responseType = 'text';
+xhr.onload = function() {
+    if(xhr.status === 200) {
+    myData = JSON.parse(xhr.responseText);
+    console.log(myData);
+    }
+}
+xhr.send();
 
 function startGame() {
     if(!username.value) {
-        console.log("No username value");
+        console.log("No usersname value");
         username.placeholder = "Username...";
         username.style.setProperty('--border-style-username', 'crimson');
     } else if(username.value) {
@@ -20,10 +34,12 @@ function startGame() {
 
 function showHighscore(){
         if(loginBox.firstChild.id === "loginDiv") { 
+            title.innerHTML = myData.title.highscorepage;
             html.style.setProperty('--box-height', '530px');
             loginBox.removeChild(loginDiv);   
             loginBox.appendChild(highscoreDiv);  
-        } else if (loginBox.firstChild.id === "highscoreBox"){
+        } else if (loginBox.firstChild.id === "highscoreBox") {
+            title.innerHTML = myData.title.loginpage;
             loginBox.removeChild(highscoreDiv);
             html.style.setProperty('--box-height', '250px');
             loginBox.appendChild(loginDiv); 
@@ -70,7 +86,7 @@ function createHighScoreDiv() {
     /* Name and score */
     for(i = 0; i < 2; i++) {
         thead = document.createElement('th');
-        thead.innerHTML = 'Name';
+        thead.innerHTML = myData.highscoretitle[i];
         tableRow.appendChild(thead);
     }
     tableRow.id = ('firstTr');
@@ -82,7 +98,7 @@ function createHighScoreDiv() {
         tableRow = document.createElement('tr');
         for(cell = 0; cell < 2; cell++) {
             tableData = document.createElement('td');
-            tableData.innerHTML = 'hej' + row;
+            tableData.innerHTML = myData.users[row][cell];
             tableRow.appendChild(tableData);
         }
         table.appendChild(tableRow);
