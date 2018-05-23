@@ -82,7 +82,6 @@ function createHighScoreDiv() {
     var table = document.createElement('table'), tableRow, tableData, thead, headTable;
     headTable = document.createElement('table');
     tableRow = document.createElement('tr');
-
     /* Name and score */
     for(i = 0; i < 2; i++) {
         thead = document.createElement('th');
@@ -139,9 +138,10 @@ window.addEventListener('resize', function(){
 
 window.onload = function() {
     //Create highscore div
+    console.log("onLoad");
     createLoginDiv();
     createHighScoreDiv();
-    
+
 
 
     //canvas size
