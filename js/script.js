@@ -77,6 +77,7 @@ function loadingStars(size, starArray, amount, ySpeed, xSpeed) {
 }
 
 function restart() {
+    starHandler()
     newHighScore(newScore, tempHighScore);
     newScore = 0;
     opacity = 0;
@@ -230,13 +231,13 @@ document.addEventListener('click', function () {
 document.addEventListener('mousemove', function () {
     if (!gameStopped) {
         var event = window.event;
-        mousePosX = event.clientX;
         mousePosY = event.clientY;
-
+        mousePosX = event.clientX;
+    
         /* stars moving with the mouse */
         starsX = (mousePosX - (windowWidth/2) ) / 5000;
         starsX = starsX.toFixed(2);
-
+        
         /* Order up mousePosY with window.iinerHeight to match the change from mouse to new Rgb to Slider */
         mousePosY = newRgbColor(mousePosY);
         slider.style.setProperty('--slider-bg-color', 'rgb(255,' + mousePosY +', 70');
